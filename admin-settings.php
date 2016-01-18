@@ -48,7 +48,7 @@ function SocialAuth_WP_scripts()
          plugin_dir_url(__FILE__) . "assets/js/settings.js",
          array('jquery')
     );
-    
+
     wp_enqueue_script(
         "SocialAuth_WP_settings_script_for_display_order",
          plugin_dir_url(__FILE__) . "assets/js/display_order.js",
@@ -69,7 +69,7 @@ function SocialAuth_WP_render_settings_page(){
     <div class="wrap">
         <div class="icon32" id="icon-options-general"><br></div>
         <h2><?php _e('SocialAuth-WordPress Settings', 'SocialAuth-WP'); ?></h2>
-    
+
         <form method="post" action="options.php">
         <?php settings_fields( 'SocialAuth-WP-settings' ); ?>
         <?php //do_settings( 'SocialAuth-WP-settings' ); ?>
@@ -81,7 +81,7 @@ function SocialAuth_WP_render_settings_page(){
                     <th scope="row"><label for ="SocialAuth_WP_user_role" ><?php _e('User Role', 'SocialAuth_WP'); ?></label></th>
                     <td>
                         <select name="SocialAuth_WP_user_role">
-                        <?php 
+                        <?php
                             $selected_role = get_option('SocialAuth_WP_user_role');
                             if(empty($selected_role))
                             {
@@ -89,13 +89,13 @@ function SocialAuth_WP_render_settings_page(){
                             }
                               foreach($roles as $key => $role)
                               {
-                                  if($selected_role == $key) 
+                                  if($selected_role == $key)
                                       echo "<option value='" .$key . "' selected='selected'>" .$role . "</option>";
-                                  else 
+                                  else
                                       echo "<option value='" .$key . "'>" .$role . "</option>";
                               }
                           ?>
-                        
+
                         </select>
                         <span class="description">Users signing in Social Auth Login provider will get access rights from this role.</span>
                     </td>
@@ -105,7 +105,7 @@ function SocialAuth_WP_render_settings_page(){
                     <th scope="row"><label for ="SocialAuth_WP_authDialog_location" ><?php _e('Authentication Happens on', 'SocialAuth_WP'); ?></label></th>
                     <td>
                         <select name="SocialAuth_WP_authDialog_location">
-                        <?php 
+                        <?php
                             $authDialogPositions = array('popup' => 'In a Pop-up Window', 'page' => 'On Same Page');
                             $authDialogPosition = get_option('SocialAuth_WP_authDialog_location');
                             if(empty($authDialogPosition))
@@ -114,13 +114,13 @@ function SocialAuth_WP_render_settings_page(){
                             }
                               foreach($authDialogPositions as $key => $position)
                               {
-                                  if($authDialogPosition == $key) 
+                                  if($authDialogPosition == $key)
                                       echo "<option value='" .$key . "' selected='selected'>" .$position . "</option>";
-                                  else 
+                                  else
                                       echo "<option value='" .$key . "'>" .$position . "</option>";
                               }
                           ?>
-                        
+
                         </select>
                         <span class="description">Control how and where authentication dialog will appear.</span>
                     </td>
@@ -129,7 +129,7 @@ function SocialAuth_WP_render_settings_page(){
                     <th scope="row"><label for ="SocialAuth_WP_profile_picture_source" ><?php _e('Profile Picture/Avatar Comes From', 'SocialAuth_WP'); ?></label></th>
                     <td>
                         <select name="SocialAuth_WP_profile_picture_source">
-                        <?php 
+                        <?php
                             $profilePicSources = array('authenticatingProvider' => 'Authenticating Provider', 'gravatar' => 'Gravatar');
                             $profilePicSource = get_option('SocialAuth_WP_profile_picture_source');
                             if(empty($profilePicSource))
@@ -138,13 +138,13 @@ function SocialAuth_WP_render_settings_page(){
                             }
                               foreach($profilePicSources as $key => $position)
                               {
-                                  if($profilePicSource == $key) 
+                                  if($profilePicSource == $key)
                                       echo "<option value='" .$key . "' selected='selected'>" .$position . "</option>";
-                                  else 
+                                  else
                                       echo "<option value='" .$key . "'>" .$position . "</option>";
                               }
                           ?>
-                        
+
                         </select>
                         <span class="description">Control from where profile pic/avatar comes from.</span>
                     </td>
@@ -161,11 +161,11 @@ function SocialAuth_WP_render_settings_page(){
                     <td>
                         <?php $images_url = plugin_dir_url(__FILE__) .'assets/images/'; ?>
                         <ul id="providerlist" class="ui-sortable">
-                        <?php 
+                        <?php
                         // sort by display_order
                         $providersDataForDisplayOrder = empty($SocialAuth_WP_providers)? $HA_PROVIDER_CONFIG['providers']: $SocialAuth_WP_providers;
                         uasort($providersDataForDisplayOrder, 'compare_displayOrder');
-                        foreach($providersDataForDisplayOrder as $name => $details) { 
+                        foreach($providersDataForDisplayOrder as $name => $details) {
                             //$details = $HA_PROVIDER_CONFIG['providers'][$name];
                         ?>
                             <li class="<?php echo $name; ?>">
@@ -179,7 +179,7 @@ function SocialAuth_WP_render_settings_page(){
                     </td>
                 </tr>
                 <tr valign="top">
-                	<?php 
+                	<?php
                 		$pages = array('register', 'comment');
                 		$enabledPages = get_option('SocialAuth_WP_providerIcons_host_pages');
                 	?>
@@ -194,9 +194,9 @@ function SocialAuth_WP_render_settings_page(){
                         <span class="description">Enable/Disable visibility of Provider Icons on various pages.</span>
                     </td>
                 </tr>
-                
+
                 <tr valign="top">
-                	<?php 
+                	<?php
                 		$validateEmail = get_option('SocialAuth_WP_validate_newUser_email');
                 	?>
                     <th scope="row"><label for ="SocialAuth_WP_validate_newUser_email" ><?php _e("Validate New User's E-mail", 'SocialAuth_WP'); ?></label></th>
@@ -207,7 +207,7 @@ function SocialAuth_WP_render_settings_page(){
                     </td>
                 </tr>
                 <tr valign="top">
-                	<?php 
+                	<?php
                 		$notShowLogoutWarning = get_option('SocialAuth_WP_skip_logout_warning');
                 	?>
                     <th scope="row"><label for ="SocialAuth_WP_skip_logout_warning" ><?php _e("Logout Warning", 'SocialAuth_WP'); ?></label></th>
@@ -233,7 +233,7 @@ function SocialAuth_WP_render_settings_page(){
             <h3><?php _e('Login Providers', 'SocialAuth-WP'); ?></h3>
             <table class="form-table">
                 <?php
-            foreach($HA_PROVIDER_CONFIG['providers'] as $provider => $settings) { 
+            foreach($HA_PROVIDER_CONFIG['providers'] as $provider => $settings) {
             ?>
                 <tr valign="top">
                     <th><label><?php _e($provider, 'SocialAuth-WP'); ?></label></th>
@@ -245,7 +245,7 @@ function SocialAuth_WP_render_settings_page(){
                                 <p><label><input type="radio" <?php echo (!isset($SocialAuth_WP_providers[$provider]['enabled']) || ($SocialAuth_WP_providers[$provider]['enabled'] == 0))? 'checked=\'checked\'' : ''; ?> class="SocialAuth_WP_adaptor_status" value="0" name="SocialAuth_WP_providers[<?php echo $provider ?>][enabled]">Disabled</label></p>
                                 <p><label><input type="radio" <?php echo (isset($SocialAuth_WP_providers[$provider]['enabled']) && ($SocialAuth_WP_providers[$provider]['enabled'] == 1))? 'checked=\'checked\'' : ''; ?> class="SocialAuth_WP_adaptor_status" value="1" name="SocialAuth_WP_providers[<?php echo $provider ?>][enabled]">Enabled</label></p>
                                 <ul>
-                                    
+
                                     <?php if(isset($settings['keys']) && is_array($settings['keys']) && isset($settings['keys']['id'])) {?>
                                         <li>
                                             <label for="">
@@ -287,11 +287,11 @@ function SocialAuth_WP_render_settings_page(){
                         <?php }?>
                     </td>
                 </tr>
-            <?php 
+            <?php
             }
             ?>
             </table>
-            <span class="description">By enabling/disbaling you can control which login provider should appear on login screen. If you choose to enable a login provider you will need to create API Key and APP ID and APP secret from respective login provider's site. Enter those values above and you are done !!!</span>
+            <span class="description">By enabling/disabling you can control which login provider should appear on login screen. If you choose to enable a login provider you will need to create API Key and APP ID and APP secret from respective login provider's site. Enter those values above and you are done !!!</span>
             <p class="submit">
                 <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
             </p>
